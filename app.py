@@ -49,5 +49,18 @@ def tobs():
     #result = list(np.ravel(result))
     return jsonify(result)
 
+@app.route('/api/v1.0/<start>')
+def temps1(start):
+    start_date = start
+    temps = session.query(func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)).filter(Measurement.date >=start_date).all()
+    return jsonify(temps)
+
+@app.route('/api/v1.0/<start>/<end>')
+def temps2(start, end):
+    start_date = start
+    end_date = end
+    temps2 = session.query(func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)).filter(Measurement.date >= start_date).filter(Measurement.date <= end_date).all()
+    return jsonify(temps2)
+    
 if __name__ == "__main__":
     app.run(debug=True)
