@@ -61,6 +61,6 @@ def temps2(start, end):
     end_date = end
     temps2 = session.query(func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)).filter(Measurement.date >= start_date).filter(Measurement.date <= end_date).all()
     return jsonify(temps2)
-    
+
 if __name__ == "__main__":
     app.run(debug=True)
